@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			identifier: ergebnis.noParameterWithNullableTypeDeclaration
+			path: ../../src/ReactCacheInstrumentation.php
+		-
+			message: '#Parameter \#1 \$spanName of method OpenTelemetry\\API\\Trace\\TracerInterface::spanBuilder\(\) expects non-empty-string, string given.#'
+			path: ../../src/ReactCacheInstrumentation.php
+
+#	ergebnis:
+#		noExtends:
+#			classesAllowedToBeExtended:
+#				- Psr\Log\AbstractLogger
