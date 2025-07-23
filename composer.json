@@ -1,0 +1,60 @@
+{
+  "name": "react-inspector/cache",
+  "description": "\ud83d\uddc4\ufe0f Open Telemetry react/cache auto instrumentation",
+  "license": "Apache-2.0",
+  "require": {
+    "php": "^8.3",
+    "ext-opentelemetry": "*",
+    "open-telemetry/api": "^1.0",
+    "open-telemetry/context": "^1.2",
+    "open-telemetry/sdk": "^1.0",
+    "open-telemetry/sem-conv": "^1.32",
+    "react/cache": "^1.2"
+  },
+  "require-dev": {
+    "wyrihaximus/async-test-utilities": "^9.4.2",
+    "wyrihaximus/makefiles": "^0.4.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "ReactInspector\\Cache\\": "src/"
+    },
+    "files": [
+      "_register.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ReactInspector\\Tests\\Cache\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "drupol/composer-packages": true,
+      "ergebnis/composer-normalize": true,
+      "icanhazstring/composer-unused": true,
+      "infection/extension-installer": true,
+      "mindplay/composer-locator": true,
+      "php-http/discovery": true,
+      "phpstan/extension-installer": true,
+      "tbachert/spi": true,
+      "wyrihaximus/broadcast": true,
+      "wyrihaximus/makefiles": true
+    },
+    "platform": {
+      "php": "8.3.13"
+    },
+    "sort-packages": true
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "composer normalize || true",
+      "composer update --lock --no-scripts --no-plugins"
+    ],
+    "post-update-cmd": [
+      "composer normalize",
+      "composer update --lock --no-scripts --no-plugins"
+    ]
+  }
+}
