@@ -83,17 +83,18 @@ final class ReactCacheInstrumentation
                 return $promise;
             }
 
-            $scope->detach();
             $span = Span::fromContext($scope->context());
             if (! $span->isRecording()) {
                 return $promise;
             }
 
-            return $promise->then(static function (mixed $data) use ($span): mixed {
+            return $promise->then(static function (mixed $data) use ($span, $scope): mixed {
+                $scope->detach();
                 $span->end();
 
                 return $data;
-            }, static function (Throwable $exception) use ($span): never {
+            }, static function (Throwable $exception) use ($span, $scope): never {
+                $scope->detach();
                 $span->recordException($exception);
                 $span->setStatus(StatusCode::STATUS_ERROR, $exception->getMessage());
                 $span->end();
