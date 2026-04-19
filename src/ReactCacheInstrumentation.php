@@ -27,11 +27,11 @@ use function is_string;
 use function OpenTelemetry\Instrumentation\hook;
 use function sprintf;
 
+/** @api */
 final class ReactCacheInstrumentation
 {
     private const int FIRST_ARGUMENT = 0;
 
-    /** @phpstan-ignore shipmonk.deadConstant */
     public const string NAME = 'reactphp';
 
     /**
@@ -64,6 +64,7 @@ final class ReactCacheInstrumentation
             }
 
             if (array_key_exists(self::FIRST_ARGUMENT, $params) && is_array($params[self::FIRST_ARGUMENT])) {
+                /** @var array<string> $keys */
                 $keys = array_values($params[self::FIRST_ARGUMENT]) !== $params[self::FIRST_ARGUMENT] ? array_keys($params[self::FIRST_ARGUMENT]) : $params[self::FIRST_ARGUMENT];
                 $builder->setAttribute('cache.keys', implode(',', $keys));
             }
@@ -99,7 +100,6 @@ final class ReactCacheInstrumentation
                 $span->setStatus(StatusCode::STATUS_ERROR, $exception->getMessage());
                 $span->end();
 
-                /** @phpstan-ignore shipmonk.checkedExceptionInCallable */
                 throw $exception;
             });
         };
@@ -120,8 +120,11 @@ final class ReactCacheInstrumentation
         return $instrumentation->tracer()
             ->spanBuilder($name)
             ->setSpanKind(SpanKind::KIND_INTERNAL)
+            /** @phpstan-ignore classConstant.deprecatedInterface */
             ->setAttribute(TraceAttributes::CODE_FUNCTION_NAME, sprintf('%s::%s', $class, $function))
+            /** @phpstan-ignore classConstant.deprecatedInterface */
             ->setAttribute(TraceAttributes::CODE_FILE_PATH, $filename)
+            /** @phpstan-ignore classConstant.deprecatedInterface */
             ->setAttribute(TraceAttributes::CODE_LINE_NUMBER, $lineno)
             ->setAttribute('cache.operation', $name);
     }

@@ -3,17 +3,19 @@
   "description": "\ud83d\uddc4\ufe0f Open Telemetry react/cache auto instrumentation",
   "license": "Apache-2.0",
   "require": {
-    "php": "^8.3",
+    "php": "^8.4",
     "ext-opentelemetry": "*",
+    "nyholm/psr7": "^1.8",
     "open-telemetry/api": "^1.0",
     "open-telemetry/context": "^1.2",
     "open-telemetry/sdk": "^1.0",
     "open-telemetry/sem-conv": "^1.32",
-    "react/cache": "^1.2"
+    "react/cache": "^1.2",
+    "symfony/http-client": "^8.1"
   },
   "require-dev": {
-    "wyrihaximus/async-test-utilities": "^9.4.2",
-    "wyrihaximus/makefiles": "^0.5.0"
+    "wyrihaximus/async-test-utilities": "^12.2.0",
+    "wyrihaximus/makefiles": "^0.7.6"
   },
   "autoload": {
     "psr-4": {
@@ -40,21 +42,23 @@
       "phpstan/extension-installer": true,
       "tbachert/spi": true,
       "wyrihaximus/broadcast": true,
-      "wyrihaximus/makefiles": true
+      "wyrihaximus/makefiles": true,
+      "wyrihaximus/test-utilities": true
     },
     "platform": {
-      "php": "8.3.13"
+      "php": "8.4.13"
     },
     "sort-packages": true
   },
   "scripts": {
     "post-install-cmd": [
       "composer normalize || true",
-      "composer update --lock --no-scripts --no-plugins"
+      "composer update --lock --no-scripts --no-plugins",
+      "make on-install-or-update || true"
     ],
     "post-update-cmd": [
-      "composer normalize",
-      "composer update --lock --no-scripts --no-plugins"
+      "composer update --lock --no-scripts --no-plugins",
+      "make on-install-or-update || true"
     ]
   }
 }
