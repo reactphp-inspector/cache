@@ -14,7 +14,7 @@
     "symfony/http-client": "^8.1"
   },
   "require-dev": {
-    "wyrihaximus/async-test-utilities": "^13.4.1",
+    "wyrihaximus/async-test-utilities": "^13.5.0",
     "wyrihaximus/makefiles": "^0.13.3"
   },
   "autoload": {
